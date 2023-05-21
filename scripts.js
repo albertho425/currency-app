@@ -1,5 +1,6 @@
 let currencyAPIKey = "BXEh8fPVQeAN2jijFixukfmK2PNmKo83";
 let theAnswer = document.getElementById("answer");
+let theAnswerChangePCT = document.getElementById("answerPCT");
 
 
 // window.onload = getData();
@@ -48,7 +49,7 @@ function processFluctuationForm()
     let toDate = document.getElementById("endDate").value;
     let fromCurrency = document.getElementById("from").value;
     let toCurrency = document.getElementById("to").value;
-
+    
     console.log(fromDate);
     console.log(toDate);
     console.log(fromCurrency);
@@ -105,6 +106,12 @@ async function getFluctuation(startDate, endDate, startCurrency, endCurrency)
             // console.log("the rate of change % is: " + tempAmountChangePCT);
             
             // outputData(tempAmount);
+
+
+
+            theAnswer.innerHTML = tempResultChange;
+            theAnswerChangePCT.innerHTML = tempResultChangePCT;
+            
         }
 
 }   catch (error) {
@@ -115,6 +122,13 @@ async function getFluctuation(startDate, endDate, startCurrency, endCurrency)
 
 
 }
+
+/**
+ * Get the currency value at a specified date in the past
+ * @param {*} dateInput 
+ * @param {*} fromInput 
+ * @param {*} toInput 
+ */
 
 
 async function getHistory(dateInput, fromInput, toInput) {
@@ -221,3 +235,4 @@ function outputData(answer) {
     // toCurrency.innerHTML = to;
     theAnswer.innerHTML = answer;
 }
+
