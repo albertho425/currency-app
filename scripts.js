@@ -37,12 +37,89 @@ function processHistoryForm()
     getHistory(historyDate,fromCurrency,toCurrency);
 }
 
+/**
+ * On form submission, get values and call fluctuation function
+ */
+
+
+function processFluctuationForm() 
+{
+    let fromDate = document.getElementById("startDate").value;
+    let toDate = document.getElementById("endDate").value;
+    let fromCurrency = document.getElementById("from").value;
+    let toCurrency = document.getElementById("to").value;
+
+    console.log(fromDate);
+    console.log(toDate);
+    console.log(fromCurrency);
+    console.log(toCurrency);
+
+    getFluctuation(fromDate,toDate,fromCurrency,toCurrency);
+
+}
+
+/**
+ * Calculate the amount of change and % change for a chosen currency at a chosen interval
+ * @param {*} startDate 
+ * @param {*} endDate 
+ * @param {*} startCurrency 
+ * @param {*} endCurrency 
+ */
+
+async function getFluctuation(startDate, endDate, startCurrency, endCurrency)
+{
+    // https://api.apilayer.com/exchangerates_data/fluctuation?start_date=2023-05-01&end_date=2023-05-20
+    const apiURL =  "https://api.apilayer.com/exchangerates_data/fluctuation?start_date=" + startDate + "&end_date=" + endDate + "&base=" + startCurrency + "&symbols=" + endCurrency + "&apikey=" + currencyAPIKey;
+
+    console.log(apiURL);
+
+    try {
+        const response = await fetch(apiURL, {cache: "no-cache"});
+        const result = await response.json();
+    
+        if (response.ok) {
+            console.log("Fluctuation API result is: " , result);
+
+            // USD: Object { start_rate: 0.737841, end_rate: 0.740988, change: 0.0031, … }
+            // change: 0.0031
+            // change_pct: 0.4265
+            // end_rate: 0.740988
+            // start_rate: 0.737841
+            
+
+            let tempResultChange = result.rates["USD"].change;
+            let tempResultChangePCT = result.rates["USD"].change_pct;
+            
+            console.log("Result change is: " + tempResultChange);
+            console.log("Result change % is: " + tempResultChangePCT);
+
+
+            // let tempStringChange = "result.rates[" + endCurrency + "].change";
+            // let tempAmountChange = tempStringChange;
+
+            // // to access inside an object
+            // let tempStringChangePCT = "result.rates[" + endCurrency + "].change_pct";
+            // let tempAmountChangePCT = tempStringChangePCT;
+
+            // console.log("the rate of change is: " + tempAmountChange);
+            // console.log("the rate of change % is: " + tempAmountChangePCT);
+            
+            // outputData(tempAmount);
+        }
+
+}   catch (error) {
+        if (error) throw error;
+        console.log("Fluctuation API error ", error);
+    
+}
+
+
+}
+
+
 async function getHistory(dateInput, fromInput, toInput) {
 
-//     https://api.apilayer.com/exchangerates_data/2023-05-18?symbols=CAD&base=USD
-// 
-    console.log("the date is: " + dateInput);
-    const apiURL =  "https://api.apilayer.com/exchangerates_data/" + dateInput + "?symbols=" + fromInput + "&base=" + toInput + "&apikey=" + currencyAPIKey;
+    const apiURL =  "https://api.apilayer.com/exchangerates_data/" + dateInput + "?symbols=" + toInput + "&base=" + fromInput + "&apikey=" + currencyAPIKey;
 
     console.log(apiURL);
 
@@ -55,16 +132,16 @@ async function getHistory(dateInput, fromInput, toInput) {
 
             //CAD is hardcoded 
             //how to access the rates: Object { CAD: 1.34955 }
-            let tempAmount = result.rates["CAD"];
-            console.log("the rate is: " + tempAmount);
+            let tempAmount = result.rates["USD"];
+            console.log("the rate on that day is: " + tempAmount);
             
             outputData(tempAmount);
         }
 
-} catch (error) {
-    if (error) throw error;
-    console.log("History API error ", error);
-    let 
+}   catch (error) {
+        if (error) throw error;
+        console.log("History API error ", error);
+    
 }
  
 
@@ -79,7 +156,7 @@ async function getHistory(dateInput, fromInput, toInput) {
 
 async function formConvert(amountInput, fromInput, toInput) {
 
-    const apiURL =  "https://api.apilayer.com/exchangerates_data/convert?to=" + fromInput + "&from=" + toInput + "&amount=" + amountInput + "&apikey=" + currencyAPIKey;
+    const apiURL =  "https://api.apilayer.com/exchangerates_data/convert?to=" + toInput + "&from=" + fromInput + "&amount=" + amountInput + "&apikey=" + currencyAPIKey;
 
     console.log(apiURL);
  
@@ -90,10 +167,11 @@ async function formConvert(amountInput, fromInput, toInput) {
         if (response.ok) {
             console.log("Convert API result is: " , result);
 
-            let tempAmount = result.result;
-            console.log("the rate is: " + tempAmount);
+            let tempResult = result.result;
+            console.log("The conversion result is: " + tempResult);
+
+            outputData(tempResult);
             
-            outputData(tempAmount);
         }
 
 } catch (error) {
