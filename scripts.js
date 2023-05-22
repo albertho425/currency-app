@@ -236,3 +236,62 @@ function outputData(answer) {
     theAnswer.innerHTML = answer;
 }
 
+async function topCurrencies() {
+
+    const apiURL =  "https://api.apilayer.com/exchangerates_data/latest?symbols=CAD%2C%20GBP%2C%20EUR%2C%20CHF%2C%20KYD%2C%20KWD%2C%20KRW%2C%20CNY%2C%20INR&base=USD" + "&apikey=" + currencyAPIKey;
+
+    https://api.apilayer.com/exchangerates_data/latest?symbols=CAD%2C%20GBP%2C%20EUR%2C%20CHF%2C%20KYD%2C%20KWD%2C%20KRW%2C%20CNY%2C%20INR
+
+    console.log(apiURL);
+ 
+    try {
+        const response = await fetch(apiURL, {cache: "no-cache"});
+        const result = await response.json();
+    
+        if (response.ok) {
+            console.log("Latest API result is: " , result);
+
+            let CAD = (result.rates["CAD"]).toFixed(2);
+            let GBP = (result.rates["GBP"]).toFixed(2);
+            let EUR = (result.rates["EUR"]).toFixed(2);
+            let CHF = (result.rates["CHF"]).toFixed(2);
+            let KYD = (result.rates["KYD"]).toFixed(2);
+            let KWD = (result.rates["KWD"]).toFixed(2);
+            let KRW = (result.rates["KRW"]).toFixed(2);
+            let CNY = (result.rates["CNY"]).toFixed(2);
+            let INR = (result.rates["INR"]).toFixed(2);
+
+            let answer01 = document.getElementById("answer01");
+            let answer02 = document.getElementById("answer02");
+            let answer03 = document.getElementById("answer03");
+            let answer04 = document.getElementById("answer04");
+            let answer05 = document.getElementById("answer05");
+            let answer06 = document.getElementById("answer06");
+            let answer07 = document.getElementById("answer07");
+            let answer08 = document.getElementById("answer08");
+            let answer09 = document.getElementById("answer09");
+            
+            answer01.innerHTML = CAD;
+            answer02.innerHTML = GBP;
+            answer03.innerHTML = EUR;
+            answer04.innerHTML = CHF;
+            answer05.innerHTML = KYD;
+            answer06.innerHTML = KWD;
+            answer07.innerHTML = KRW;
+            answer08.innerHTML = CNY;
+            answer09.innerHTML = INR;
+        
+
+            
+            
+        }
+
+} catch (error) {
+    if (error) throw error;
+    console.log("Convert API error ", error);
+    let 
+}
+
+ 
+    
+}

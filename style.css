@@ -5,3 +5,12 @@ body {
 .bi {
     color: black;
 }
+
+.card {
+    width: 24rem;
+}
+
+.currency-img {
+    width: 20%;
+    padding: 15px;
+}
