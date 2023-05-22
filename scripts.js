@@ -260,6 +260,24 @@ async function topCurrencies() {
             let KRW = (result.rates["KRW"]).toFixed(2);
             let CNY = (result.rates["CNY"]).toFixed(2);
             let INR = (result.rates["INR"]).toFixed(2);
+            let theDate = result.date;
+            let timeStamp = result.timestamp;
+
+            // Create a new JavaScript Date object based on the timestamp
+            // multiplied by 1000 so that the argument is in milliseconds, not seconds.
+            var date = new Date(timeStamp * 1000);
+            // Hours part from the timestamp
+            var hours = date.getHours();
+            // Minutes part from the timestamp
+            var minutes = "0" + date.getMinutes();
+            // Seconds part from the timestamp
+            var seconds = "0" + date.getSeconds();
+
+            // Will display time in 10:30:23 format
+            var formattedTime = hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
+            console.log(theDate);
+            console.log(formattedTime);
+
 
             let answer01 = document.getElementById("answer01");
             let answer02 = document.getElementById("answer02");
@@ -280,8 +298,12 @@ async function topCurrencies() {
             answer07.innerHTML = KRW;
             answer08.innerHTML = CNY;
             answer09.innerHTML = INR;
-        
 
+            let updatedDate = document.getElementById("date");
+            let updatedTime = document.getElementById("time");
+
+            updatedDate.innerHTML = theDate;
+            updatedTime.innerHTML = formattedTime;
             
             
         }
