@@ -145,12 +145,10 @@ async function getHistory(dateInput, fromInput, toInput) {
         if (response.ok) {
             console.log("History API result is: " , result);
 
-            //CAD is hardcoded 
-            //how to access the rates: Object { CAD: 1.34955 }
-            let tempAmount = result.rates["USD"];
-            console.log("the rate on that day is: " + tempAmount);
+             let tempAmount = result.rates[toInput];
             
             outputData(tempAmount);
+
         }
 
 }   catch (error) {
@@ -161,6 +159,7 @@ async function getHistory(dateInput, fromInput, toInput) {
  
 
 }
+
 
 /**
  * On form submission, provide the conversion result
@@ -365,9 +364,32 @@ async function getTimeSeries(startDate, endDate, startCurrency, endCurrency)
             console.log("Timeseries API result is: " , result);
 
        
-            
-        drawGraph();
+        let rate1 = result.rates["2023-05-01"].CAD;
+        let rate2 = result.rates["2023-05-02"].CAD;
+        let rate3 = result.rates["2023-05-03"].CAD;
+        let rate4 = result.rates["2023-05-04"].CAD;
+        let rate5 = result.rates["2023-05-05"].CAD;
+        
+        
+        
+//        "2023-05-01": Object { CAD: 1.355305 }
+// ​       "2023-05-02": Object { CAD: 1.362095 }
+// ​​       "2023-05-03": Object { CAD: 1.363255 }
+// ​​       "2023-05-04": Object { CAD: 1.35255 }
+// ​       "2023-05-05": Object { CAD: 1.34755 }
+//        "2023-05-06": Object { CAD: 1.34755 }
+//        "2023-05-07": Object { CAD: 1.338065 }    
+        drawGraph(rate1,rate2,rate3,rate4,rate5);
 
+        const user = { 
+            'name': 'Alex',
+            'address': '15th Park Avenue',
+            'age': 43
+        }
+
+        const { age,address } = user;
+        console.log(age,address);
+        
             
         }
 
@@ -380,16 +402,16 @@ async function getTimeSeries(startDate, endDate, startCurrency, endCurrency)
 
 }
 
-function drawGraph() {
+function drawGraph(input1, input2, input3, input4, input5) {
     const ctx = document.getElementById('myChart');
         
           new Chart(ctx, {
             type: 'line',
             data: {
-              labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+              labels: ['Date1', 'Date2', 'Date3', 'Date4', 'Date5'],
               datasets: [{
-                label: '# of Votes',
-                data: [12, 19, 3, 5, 2, 3],
+                label: 'Value of Currency',
+                data: [input1, input2, input3, input4, input5],
                 borderWidth: 1,
                 backgroundColor: 'red'
               }]
