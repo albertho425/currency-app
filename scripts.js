@@ -1,4 +1,5 @@
-let currencyAPIKey = "BXEh8fPVQeAN2jijFixukfmK2PNmKo83";
+// let currencyAPIKey = "BXEh8fPVQeAN2jijFixukfmK2PNmKo83";
+let currencyAPIKey = "6UGvcEOcu5uJ5WMCL0v0kBLyCRFyu5jP";
 let theAnswer = document.getElementById("answer");
 let theAnswerChangePCT = document.getElementById("answerPCT");
 
@@ -260,6 +261,24 @@ async function topCurrencies() {
             let KRW = (result.rates["KRW"]).toFixed(2);
             let CNY = (result.rates["CNY"]).toFixed(2);
             let INR = (result.rates["INR"]).toFixed(2);
+            let theDate = result.date;
+            let timeStamp = result.timestamp;
+
+            // Create a new JavaScript Date object based on the timestamp
+            // multiplied by 1000 so that the argument is in milliseconds, not seconds.
+            var date = new Date(timeStamp * 1000);
+            // Hours part from the timestamp
+            var hours = date.getHours();
+            // Minutes part from the timestamp
+            var minutes = "0" + date.getMinutes();
+            // Seconds part from the timestamp
+            var seconds = "0" + date.getSeconds();
+
+            // Will display time in 10:30:23 format
+            var formattedTime = hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
+            console.log(theDate);
+            console.log(formattedTime);
+
 
             let answer01 = document.getElementById("answer01");
             let answer02 = document.getElementById("answer02");
@@ -280,8 +299,12 @@ async function topCurrencies() {
             answer07.innerHTML = KRW;
             answer08.innerHTML = CNY;
             answer09.innerHTML = INR;
-        
 
+            let updatedDate = document.getElementById("date");
+            let updatedTime = document.getElementById("time");
+
+            updatedDate.innerHTML = theDate;
+            updatedTime.innerHTML = formattedTime;
             
             
         }
@@ -294,4 +317,90 @@ async function topCurrencies() {
 
  
     
+}
+
+/**
+ *  Call the getTimeSeries function on form submission 
+ */
+function processTimeSeries() {
+    console.log("process time series function");
+
+    let fromDate = document.getElementById("startDate").value;
+    let toDate = document.getElementById("endDate").value;
+    let fromCurrency = document.getElementById("from").value;
+    let toCurrency = document.getElementById("to").value;
+    
+    console.log(fromDate);
+    console.log(toDate);
+    console.log(fromCurrency);
+    console.log(toCurrency);
+
+    getTimeSeries();
+
+
+}
+
+/**
+ * Get the table/graph for a currency at a specific time interval
+ * @param {*} startDate 
+ * @param {*} endDate 
+ * @param {*} startCurrency 
+ * @param {*} endCurrency 
+ */
+
+async function getTimeSeries(startDate, endDate, startCurrency, endCurrency)
+{
+    
+    // const apiURL =  "https://api.apilayer.com/exchangerates_data/fluctuation?start_date=" + startDate + "&end_date=" + endDate + "&base=" + startCurrency + "&symbols=" + endCurrency + "&apikey=" + currencyAPIKey;
+
+    const apiURL = "https://api.apilayer.com/exchangerates_data/timeseries?start_date=2023-05-01&end_date=2023-05-07" + "&base=USD" + "&symbols=CAD" + "&apikey=" + currencyAPIKey;
+
+    console.log(apiURL);
+
+    try {
+        const response = await fetch(apiURL, {cache: "no-cache"});
+        const result = await response.json();
+    
+        if (response.ok) {
+            console.log("Timeseries API result is: " , result);
+
+       
+            
+        drawGraph();
+
+            
+        }
+
+}   catch (error) {
+        if (error) throw error;
+        console.log("Timeseries API error ", error);
+    
+}
+
+
+}
+
+function drawGraph() {
+    const ctx = document.getElementById('myChart');
+        
+          new Chart(ctx, {
+            type: 'line',
+            data: {
+              labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+              datasets: [{
+                label: '# of Votes',
+                data: [12, 19, 3, 5, 2, 3],
+                borderWidth: 1,
+                backgroundColor: 'red'
+              }]
+            },
+            options: {
+              scales: {
+                y: {
+                  beginAtZero: true
+                }
+              }
+            }
+          });
+          
 }
