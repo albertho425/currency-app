@@ -62,6 +62,7 @@ function processFluctuationForm()
 
 /**
  * Calculate the amount of change and % change for a chosen currency at a chosen interval
+ * 
  * @param {*} startDate 
  * @param {*} endDate 
  * @param {*} startCurrency 
@@ -71,7 +72,7 @@ function processFluctuationForm()
 async function getFluctuation(startDate, endDate, startCurrency, endCurrency)
 {
     // https://api.apilayer.com/exchangerates_data/fluctuation?start_date=2023-05-01&end_date=2023-05-20
-    const apiURL =  "https://api.apilayer.com/exchangerates_data/fluctuation?start_date=" + startDate + "&end_date=" + endDate + "&base=" + startCurrency + "&symbols=" + endCurrency + "&apikey=" + currencyAPIKey;
+    const apiURL =  "https://api.apilayer.com/exchangerates_data/fluctuation?start_date=" + startDate + "&end_date=" + endDate + "&base=" + startCurrency  + "&apikey=" + currencyAPIKey;
 
     console.log(apiURL);
 
@@ -81,34 +82,12 @@ async function getFluctuation(startDate, endDate, startCurrency, endCurrency)
     
         if (response.ok) {
             console.log("Fluctuation API result is: " , result);
-
-            // USD: Object { start_rate: 0.737841, end_rate: 0.740988, change: 0.0031, … }
-            // change: 0.0031
-            // change_pct: 0.4265
-            // end_rate: 0.740988
-            // start_rate: 0.737841
             
-
-            let tempResultChange = result.rates["USD"].change;
-            let tempResultChangePCT = result.rates["USD"].change_pct;
+            let tempResultChange = result.rates[endCurrency].change;
+            let tempResultChangePCT = result.rates[endCurrency].change_pct;
             
             console.log("Result change is: " + tempResultChange);
             console.log("Result change % is: " + tempResultChangePCT);
-
-
-            // let tempStringChange = "result.rates[" + endCurrency + "].change";
-            // let tempAmountChange = tempStringChange;
-
-            // // to access inside an object
-            // let tempStringChangePCT = "result.rates[" + endCurrency + "].change_pct";
-            // let tempAmountChangePCT = tempStringChangePCT;
-
-            // console.log("the rate of change is: " + tempAmountChange);
-            // console.log("the rate of change % is: " + tempAmountChangePCT);
-            
-            // outputData(tempAmount);
-
-
 
             theAnswer.innerHTML = tempResultChange;
             theAnswerChangePCT.innerHTML = tempResultChangePCT;
