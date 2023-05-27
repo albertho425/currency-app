@@ -313,7 +313,7 @@ function processTimeSeries() {
     console.log(fromCurrency);
     console.log(toCurrency);
 
-    getTimeSeries();
+    getTimeSeries(fromDate, toDate, fromCurrency, toCurrency);
 
 
 }
@@ -329,9 +329,9 @@ function processTimeSeries() {
 async function getTimeSeries(startDate, endDate, startCurrency, endCurrency)
 {
     
-    // const apiURL =  "https://api.apilayer.com/exchangerates_data/fluctuation?start_date=" + startDate + "&end_date=" + endDate + "&base=" + startCurrency + "&symbols=" + endCurrency + "&apikey=" + currencyAPIKey;
+    const apiURL =  "https://api.apilayer.com/exchangerates_data/timeseries?start_date=" + startDate + "&end_date=" + endDate + "&base=" + startCurrency + "&apikey=" + currencyAPIKey;
 
-    const apiURL = "https://api.apilayer.com/exchangerates_data/timeseries?start_date=2023-05-01&end_date=2023-05-07" + "&base=USD" + "&symbols=CAD" + "&apikey=" + currencyAPIKey;
+    // const apiURL = "https://api.apilayer.com/exchangerates_data/timeseries?start_date=2023-05-01&end_date=2023-05-07" + "&base=" + startCurrency + "&apikey=" + currencyAPIKey;
 
     console.log(apiURL);
 
@@ -343,31 +343,17 @@ async function getTimeSeries(startDate, endDate, startCurrency, endCurrency)
             console.log("Timeseries API result is: " , result);
 
        
-        let rate1 = result.rates["2023-05-01"].CAD;
-        let rate2 = result.rates["2023-05-02"].CAD;
-        let rate3 = result.rates["2023-05-03"].CAD;
-        let rate4 = result.rates["2023-05-04"].CAD;
-        let rate5 = result.rates["2023-05-05"].CAD;
-        
-        
-        
-//        "2023-05-01": Object { CAD: 1.355305 }
-// ​       "2023-05-02": Object { CAD: 1.362095 }
-// ​​       "2023-05-03": Object { CAD: 1.363255 }
-// ​​       "2023-05-04": Object { CAD: 1.35255 }
-// ​       "2023-05-05": Object { CAD: 1.34755 }
-//        "2023-05-06": Object { CAD: 1.34755 }
-//        "2023-05-07": Object { CAD: 1.338065 }    
-        drawGraph(rate1,rate2,rate3,rate4,rate5);
+        console.log("the endCurrency is: " + endCurrency);
 
-        const user = { 
-            'name': 'Alex',
-            'address': '15th Park Avenue',
-            'age': 43
-        }
-
-        const { age,address } = user;
-        console.log(age,address);
+        let rate1 = result.rates[startDate][endCurrency];
+        let rate5 = result.rates[endDate][endCurrency];
+        
+       console.log(rate1);
+       console.log(rate5);
+       
+       console.log( ObjectLength(result) );
+       drawGraph(startDate, endDate, rate1, rate5);
+       
         
             
         }
@@ -381,18 +367,19 @@ async function getTimeSeries(startDate, endDate, startCurrency, endCurrency)
 
 }
 
-function drawGraph(input1, input2, input3, input4, input5) {
+function drawGraph(dateFirst, dateLast, input1, input5) {
     const ctx = document.getElementById('myChart');
         
           new Chart(ctx, {
             type: 'line',
             data: {
-              labels: ['Date1', 'Date2', 'Date3', 'Date4', 'Date5'],
+              labels: [dateFirst, dateLast],
               datasets: [{
                 label: 'Value of Currency',
-                data: [input1, input2, input3, input4, input5],
-                borderWidth: 1,
-                backgroundColor: 'red'
+                data: [input1,input5],
+                borderWidth: 3,
+                backgroundColor: 'red',
+                borderColor: 'red'
               }]
             },
             options: {
@@ -405,3 +392,20 @@ function drawGraph(input1, input2, input3, input4, input5) {
           });
           
 }
+
+function ObjectLength_Modern( object ) {
+    return Object.keys(object).length;
+}
+
+function ObjectLength_Legacy( object ) {
+    var length = 0;
+    for( var key in object ) {
+        if( object.hasOwnProperty(key) ) {
+            ++length;
+        }
+    }
+    return length;
+}
+
+var ObjectLength =
+    Object.keys ? ObjectLength_Modern : ObjectLength_Legacy;
