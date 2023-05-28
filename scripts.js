@@ -21,6 +21,7 @@ function processForm() {
     console.log(theAmount);
     console.log(fromCurrency);
     console.log(toCurrency);
+    loadSpinner();
     formConvert(theAmount,fromCurrency,toCurrency);
 }
 
@@ -58,6 +59,7 @@ function processFluctuationForm()
     console.log(fromCurrency);
     console.log(toCurrency);
 
+    loadSpinner();
     getFluctuation(fromDate,toDate,fromCurrency,toCurrency);
 
 }
@@ -83,6 +85,7 @@ async function getFluctuation(startDate, endDate, startCurrency, endCurrency)
         const result = await response.json();
     
         if (response.ok) {
+            hideSpinner();
             console.log("Fluctuation API result is: " , result);
             
             let tempResultChange = result.rates[endCurrency].change;
@@ -171,6 +174,7 @@ async function formConvert(amountInput, fromInput, toInput) {
         const result = await response.json();
     
         if (response.ok) {
+            hideSpinner();
             console.log("Convert API result is: " , result);
 
             let tempResult = result.result;
