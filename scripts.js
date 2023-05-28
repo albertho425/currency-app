@@ -1,5 +1,6 @@
 // let currencyAPIKey = "BXEh8fPVQeAN2jijFixukfmK2PNmKo83";
-let currencyAPIKey = "6UGvcEOcu5uJ5WMCL0v0kBLyCRFyu5jP";
+let currencyAPIKey = "MpiRfIUCLEYBNP0qMX0B5zdzCsCpJQPV";
+// let currencyAPIKey = "6UGvcEOcu5uJ5WMCL0v0kBLyCRFyu5jP";
 let theAnswer = document.getElementById("answer");
 let theAnswerChangePCT = document.getElementById("answerPCT");
 
@@ -36,6 +37,7 @@ function processHistoryForm()
     console.log(historyDate.value);
     console.log(fromCurrency);
     console.log(toCurrency);
+    loadSpinner();
     getHistory(historyDate,fromCurrency,toCurrency);
 }
 
@@ -122,9 +124,20 @@ async function getHistory(dateInput, fromInput, toInput) {
         const result = await response.json();
     
         if (response.ok) {
+            // showAnswer();
+            hideSpinner();
             console.log("History API result is: " , result);
 
              let tempAmount = result.rates[toInput];
+             let success = result.success;
+
+             if (success === true) {
+                console.log("success is true");
+             }
+             else {
+                console.log("success is false");
+             }
+            //  console.log(success);
             
             outputData(tempAmount);
 
@@ -393,19 +406,38 @@ function drawGraph(dateFirst, dateLast, input1, input5) {
           
 }
 
-function ObjectLength_Modern( object ) {
-    return Object.keys(object).length;
+
+/**
+ * Hide the spinner
+ */
+
+function hideSpinner() {
+    document.getElementById('spinner')
+            .style.display = 'none';
+} 
+
+/**
+ * Show the spinner
+ */
+
+function loadSpinner() {
+    document.getElementById('spinner')
+            .style.display = '';
 }
 
-function ObjectLength_Legacy( object ) {
-    var length = 0;
-    for( var key in object ) {
-        if( object.hasOwnProperty(key) ) {
-            ++length;
-        }
-    }
-    return length;
+function hideAnswer() {
+    document.getElementById('answer')
+            .style.display = 'none';
 }
 
-var ObjectLength =
-    Object.keys ? ObjectLength_Modern : ObjectLength_Legacy;
+function showAnswer() {
+    document.getElementById('answer')
+            .style.display = 'block';
+}
+
+function clearForm() {
+    let answer2 = document.getElementById("anwswer");
+    answer2.innerHTML="";
+    console.log("cleared the form");
+}
+

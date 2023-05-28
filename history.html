@@ -50,7 +50,14 @@
                 </div>
                 <div class="row">
                     <div class="col-sm mt-4">
+                      
+                    <!-- <div id="third">This is the THIRD div</div> -->
+                    
+
                         <button type="button" class="btn btn-primary" onclick="processHistoryForm()">Submit</button>
+                        
+                      
+                      
                     </div>
                     
                 </div>
@@ -65,9 +72,13 @@
                     <div class="card-header">
                       Answer
                     </div>
-                    <div class="card-body">
+                    <div class="card-body" id="">
                       <h5 class="card-title"></h5>
-                      <p class="">Answer: <span class="" id="answer"></span></p>
+                      <div class="spinner-border" id="spinner" role="status" style="display:none;">
+                        <span class="visually-hidden">Loading...</span>
+                      </div>
+                      <p class=""><span class="" id="answer"></span></p>
+                      
                     </div>
                   </div>
             </div>
