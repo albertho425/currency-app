@@ -4,8 +4,92 @@ let currencyAPIKey = "MpiRfIUCLEYBNP0qMX0B5zdzCsCpJQPV";
 let theAnswer = document.getElementById("answer");
 let theAnswerChangePCT = document.getElementById("answerPCT");
 
+let from = document.getElementById("from");
+let to = document.getElementById("to");
+let theStartDate = document.getElementById("startDate");
+let theEndDate = document.getElementById("endDate");
+
 
 // window.onload = getData();
+
+
+/**
+ * Check that the start and end date are not missing, and the start date is before the end date, and the start date and end date are valid (in the past)
+ */
+function checkStartAndEndDate() {
+
+    //start date is not empty
+    //end date is not empty
+    //start date is before the end date
+    //start date is in the past or up to the current date
+    //end date is in the past or up to the current date
+
+
+}
+
+function checkFromCurrency() {
+    if(from.validity.valid) {
+        document.getElementById('from').innerHTML= from.value;
+        document.getElementById('fromError').innerHTML = "";
+        from.style.color="";   
+      
+    }
+      else if(from.validity.valueMissing) {
+      document.getElementById('fromError').innerHTML = "Select a currency";      
+      from.style.color = "red";
+      console.log("error in base currency")
+      
+    }
+}
+
+function checkToCurrency() {
+    if(to.validity.valid) {
+        document.getElementById('to').innerHTML= to.value;
+        document.getElementById('toError').innerHTML = "";
+        to.style.color="black;";   
+        
+        
+    }
+      else if(to.validity.valueMissing) {
+      document.getElementById('toError').innerHTML = "Select a currency";      
+      to.style.color = "red";
+      console.log("Error in output currency");
+    }
+}
+
+function checkStartDate() {
+
+    if(theStartDate.validity.valid) {
+        document.getElementById('startDate').innerHTML= startDate.value;
+        document.getElementById('startDateError').innerHTML = "";
+        theStartDate.style.color="";   
+        
+    }
+      else if(theStartDate.validity.valueMissing) {
+      document.getElementById('startDateError').innerHTML = "Select a start date";      
+      theStartDate.style.color = "red";
+      console.log("start date error");
+    }
+    
+
+}
+
+function checkEndDate() {
+
+    if(theEndDate.validity.valid) {
+        document.getElementById('endDate').innerHTML= theEndDate.value;
+        document.getElementById('endDateError').innerHTML = "";
+        theEndDate.style.color="";   
+        
+    }
+      else if(theEndDate.validity.valueMissing) {
+      document.getElementById('endDateError').innerHTML = "Select a end date";      
+      theEndDate.style.color = "red";
+      console.log("end date error");
+    }
+    
+
+}
 
 /**
  * On form submission, get values and call convert function
@@ -332,8 +416,26 @@ function processTimeSeries() {
     console.log(fromCurrency);
     console.log(toCurrency);
 
-    loadSpinner();
-    getTimeSeries(fromDate, toDate, fromCurrency, toCurrency);
+    
+    // Check that the fields are not empty
+    // in the future, check that the start date is ahead of end date, and the start date is today or past, AND the end date is today or PAST
+    if ((from.validity.valid) && (to.validity.valid) && (theStartDate.validity.valid) && (theEndDate.validity.valid))   {
+        console.log("no errors");
+        loadSpinner();
+        getTimeSeries(fromDate, toDate, fromCurrency, toCurrency);
+
+    }
+    else if (!(from.validity.valid)) {
+        checkFromCurrency();
+        checkStartDate();
+        checkEndDate();
+        checkToCurrency();
+    }
+    else {
+        checkToCurrency();
+    }
+    
+
 
 
 }
@@ -390,7 +492,10 @@ async function getTimeSeries(startDate, endDate, startCurrency, endCurrency)
 
 function drawGraph(dateFirst, dateLast, input1, input5) {
     const ctx = document.getElementById('myChart');
-        
+    
+
+        // const myLineChart =
+
           new Chart(ctx, {
             type: 'line',
             data: {
@@ -411,6 +516,8 @@ function drawGraph(dateFirst, dateLast, input1, input5) {
               }
             }
           });
+
+          
           
 }
 
@@ -449,3 +556,23 @@ function clearForm() {
     console.log("cleared the form");
 }
 
+// Example starter JavaScript for disabling form submissions if there are invalid fields
+(function () {
+    'use strict'
+  
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    var forms = document.querySelectorAll('.needs-validation')
+  
+    // Loop over them and prevent submission
+    Array.prototype.slice.call(forms)
+      .forEach(function (form) {
+        form.addEventListener('submit', function (event) {
+          if (!form.checkValidity()) {
+            event.preventDefault()
+            event.stopPropagation()
+          }
+  
+          form.classList.add('was-validated')
+        }, false)
+      })
+  })()
