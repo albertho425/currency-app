@@ -326,6 +326,7 @@ function processTimeSeries() {
     console.log(fromCurrency);
     console.log(toCurrency);
 
+    loadSpinner();
     getTimeSeries(fromDate, toDate, fromCurrency, toCurrency);
 
 
@@ -353,6 +354,7 @@ async function getTimeSeries(startDate, endDate, startCurrency, endCurrency)
         const result = await response.json();
     
         if (response.ok) {
+            hideSpinner();
             console.log("Timeseries API result is: " , result);
 
        
@@ -364,7 +366,7 @@ async function getTimeSeries(startDate, endDate, startCurrency, endCurrency)
        console.log(rate1);
        console.log(rate5);
        
-       console.log( ObjectLength(result) );
+    //    console.log( ObjectLength(result) );
        drawGraph(startDate, endDate, rate1, rate5);
        
         
