@@ -233,7 +233,8 @@ function outputData(answer) {
 }
 
 async function topCurrencies() {
-
+    
+    loadSpinner();
     const apiURL =  "https://api.apilayer.com/exchangerates_data/latest?symbols=CAD%2C%20GBP%2C%20EUR%2C%20CHF%2C%20KYD%2C%20KWD%2C%20KRW%2C%20CNY%2C%20INR&base=USD" + "&apikey=" + currencyAPIKey;
 
     https://api.apilayer.com/exchangerates_data/latest?symbols=CAD%2C%20GBP%2C%20EUR%2C%20CHF%2C%20KYD%2C%20KWD%2C%20KRW%2C%20CNY%2C%20INR
@@ -245,6 +246,7 @@ async function topCurrencies() {
         const result = await response.json();
     
         if (response.ok) {
+            hideSpinner();
             console.log("Latest API result is: " , result);
 
             let CAD = (result.rates["CAD"]).toFixed(2);
