@@ -1,6 +1,3 @@
-// let currencyAPIKey = "BXEh8fPVQeAN2jijFixukfmK2PNmKo83";
-let currencyAPIKey = "MpiRfIUCLEYBNP0qMX0B5zdzCsCpJQPV";
-// let currencyAPIKey = "6UGvcEOcu5uJ5WMCL0v0kBLyCRFyu5jP";
 let theAnswer = document.getElementById("answer");
 let theAnswerChangePCT = document.getElementById("answerPCT");
 
@@ -9,8 +6,26 @@ let to = document.getElementById("to");
 let theStartDate = document.getElementById("startDate");
 let theEndDate = document.getElementById("endDate");
 
+//Create dropdown from the currencies array
+currencies.forEach((currency) => {
+    const option = document.createElement("option");
+    option.value = currency;
+    option.text = currency;
+    from.add(option);
+  });
+  
+  //Repeat same thing for the other dropdown
+  currencies.forEach((currency) => {
+    const option = document.createElement("option");
+    option.value = currency;
+    option.text = currency;
+    to.add(option);
+  });
+  
+//Default values of currencies
+from.value="CAD";
+to.value="USD";
 
-// window.onload = getData();
 
 
 /**
@@ -160,7 +175,7 @@ function processFluctuationForm()
 async function getFluctuation(startDate, endDate, startCurrency, endCurrency)
 {
     // https://api.apilayer.com/exchangerates_data/fluctuation?start_date=2023-05-01&end_date=2023-05-20
-    const apiURL =  "https://api.apilayer.com/exchangerates_data/fluctuation?start_date=" + startDate + "&end_date=" + endDate + "&base=" + startCurrency  + "&apikey=" + currencyAPIKey;
+    const apiURL =  "https://api.apilayer.com/exchangerates_data/fluctuation?start_date=" + startDate + "&end_date=" + endDate + "&base=" + startCurrency  + "&apikey=" + apiKey;
 
     console.log(apiURL);
 
@@ -202,7 +217,7 @@ async function getFluctuation(startDate, endDate, startCurrency, endCurrency)
 
 async function getHistory(dateInput, fromInput, toInput) {
 
-    const apiURL =  "https://api.apilayer.com/exchangerates_data/" + dateInput + "?symbols=" + toInput + "&base=" + fromInput + "&apikey=" + currencyAPIKey;
+    const apiURL =  "https://api.apilayer.com/exchangerates_data/" + dateInput + "?symbols=" + toInput + "&base=" + fromInput + "&apikey=" + apiKey;
 
     console.log(apiURL);
 
@@ -249,7 +264,7 @@ async function getHistory(dateInput, fromInput, toInput) {
 
 async function formConvert(amountInput, fromInput, toInput) {
 
-    const apiURL =  "https://api.apilayer.com/exchangerates_data/convert?to=" + toInput + "&from=" + fromInput + "&amount=" + amountInput + "&apikey=" + currencyAPIKey;
+    const apiURL =  "https://api.apilayer.com/exchangerates_data/convert?to=" + toInput + "&from=" + fromInput + "&amount=" + amountInput + "&apikey=" + apiKey;
 
     console.log(apiURL);
  
@@ -319,7 +334,7 @@ function outputData(answer) {
 async function topCurrencies() {
     
     loadSpinner();
-    const apiURL =  "https://api.apilayer.com/exchangerates_data/latest?symbols=CAD%2C%20GBP%2C%20EUR%2C%20CHF%2C%20KYD%2C%20KWD%2C%20KRW%2C%20CNY%2C%20INR&base=USD" + "&apikey=" + currencyAPIKey;
+    const apiURL =  "https://api.apilayer.com/exchangerates_data/latest?symbols=CAD%2C%20GBP%2C%20EUR%2C%20CHF%2C%20KYD%2C%20KWD%2C%20KRW%2C%20CNY%2C%20INR&base=USD" + "&apikey=" + apiKey;
 
     https://api.apilayer.com/exchangerates_data/latest?symbols=CAD%2C%20GBP%2C%20EUR%2C%20CHF%2C%20KYD%2C%20KWD%2C%20KRW%2C%20CNY%2C%20INR
 
@@ -451,9 +466,7 @@ function processTimeSeries() {
 async function getTimeSeries(startDate, endDate, startCurrency, endCurrency)
 {
     
-    const apiURL =  "https://api.apilayer.com/exchangerates_data/timeseries?start_date=" + startDate + "&end_date=" + endDate + "&base=" + startCurrency + "&apikey=" + currencyAPIKey;
-
-    // const apiURL = "https://api.apilayer.com/exchangerates_data/timeseries?start_date=2023-05-01&end_date=2023-05-07" + "&base=" + startCurrency + "&apikey=" + currencyAPIKey;
+    const apiURL =  "https://api.apilayer.com/exchangerates_data/timeseries?start_date=" + startDate + "&end_date=" + endDate + "&base=" + startCurrency + "&apikey=" + apiKey;
 
     console.log(apiURL);
 
@@ -494,9 +507,9 @@ function drawGraph(dateFirst, dateLast, input1, input5) {
     const ctx = document.getElementById('myChart');
     
 
-        // const myLineChart =
+        
 
-          new Chart(ctx, {
+        var myLineChart =  new Chart(ctx, {
             type: 'line',
             data: {
               labels: [dateFirst, dateLast],
@@ -517,7 +530,7 @@ function drawGraph(dateFirst, dateLast, input1, input5) {
             }
           });
 
-          
+        // myLineChart.destroy();
           
 }
 
