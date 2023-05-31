@@ -19,3 +19,27 @@ canvas {
     background-color: white;
 
 }
+
+.nav-item-text {
+    padding-left: 25px;
+}
+
+.btn-close {
+    font-size: 20px;
+    color: black;
+    opacity: 0.5;
+}
+
+.offcanvas-body {
+    // background: #03396c;
+    background: #005b96;
+    color: white;
+  }
+
+.menu-icon {
+    color: white;
+}
+
+.btn {
+    background: #005b96;
+}
