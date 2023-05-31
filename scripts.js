@@ -1,8 +1,10 @@
 let theAnswer = document.getElementById("answer");
 let theAnswerChangePCT = document.getElementById("answerPCT");
 
+let amount = document.getElementById("amount");
 let from = document.getElementById("from");
 let to = document.getElementById("to");
+let theDate = document.getElementById("date");
 let theStartDate = document.getElementById("startDate");
 let theEndDate = document.getElementById("endDate");
 
@@ -25,6 +27,18 @@ currencies.forEach((currency) => {
 //Default values of currencies
 from.value="CAD";
 to.value="USD";
+amount.value=1.0;
+let today = new Date();
+var year = today.toLocaleString("default", { year: "numeric" });
+var month = today.toLocaleString("default", { month: "2-digit" });
+var day = today.toLocaleString("default", { day: "2-digit" });
+
+
+var formattedDate = year + "-" + month + "-" + day;
+console.log(formattedDate);  // Prints: 2022-05-0
+
+console.log(today);
+startDate.value = formattedDate;
 
 
 
@@ -133,12 +147,9 @@ function processHistoryForm()
 {
     let fromCurrency = document.getElementById("from").value;
     let toCurrency = document.getElementById("to").value;
-    let historyDate = document.getElementById("date").value;
-    console.log(historyDate.value);
-    console.log(fromCurrency);
-    console.log(toCurrency);
+    
     loadSpinner();
-    getHistory(historyDate,fromCurrency,toCurrency);
+    getHistory(theStartDate.value,fromCurrency,toCurrency);
 }
 
 /**
@@ -222,7 +233,7 @@ async function getHistory(dateInput, fromInput, toInput) {
     console.log(apiURL);
 
     try {
-        const response = await fetch(apiURL, {cache: "no-cache"});
+        const response = await fetch(apiURL, {cache: "force-cache"});
         const result = await response.json();
     
         if (response.ok) {
@@ -231,6 +242,9 @@ async function getHistory(dateInput, fromInput, toInput) {
             console.log("History API result is: " , result);
 
              let tempAmount = result.rates[toInput];
+             let amountToConvert = amount.value;
+             console.log(tempAmount);
+             let totalAmount = (tempAmount * amount.value).toFixed(2);
              let success = result.success;
 
              if (success === true) {
@@ -241,7 +255,9 @@ async function getHistory(dateInput, fromInput, toInput) {
              }
             //  console.log(success);
             
-            outputData(tempAmount);
+            let sentence = `On ${dateInput}, ${amountToConvert} from ${fromInput} to ${toInput} is ${totalAmount}.`;
+             console.log(sentence);
+            outputData(sentence);
 
         }
 
@@ -331,89 +347,7 @@ function outputData(answer) {
     theAnswer.innerHTML = answer;
 }
 
-async function topCurrencies() {
-    
-    loadSpinner();
-    const apiURL =  "https://api.apilayer.com/exchangerates_data/latest?symbols=CAD%2C%20GBP%2C%20EUR%2C%20CHF%2C%20KYD%2C%20KWD%2C%20KRW%2C%20CNY%2C%20INR&base=USD" + "&apikey=" + apiKey;
 
-    https://api.apilayer.com/exchangerates_data/latest?symbols=CAD%2C%20GBP%2C%20EUR%2C%20CHF%2C%20KYD%2C%20KWD%2C%20KRW%2C%20CNY%2C%20INR
-
-    console.log(apiURL);
- 
-    try {
-        const response = await fetch(apiURL, {cache: "no-cache"});
-        const result = await response.json();
-    
-        if (response.ok) {
-            hideSpinner();
-            console.log("Latest API result is: " , result);
-
-            let CAD = (result.rates["CAD"]).toFixed(2);
-            let GBP = (result.rates["GBP"]).toFixed(2);
-            let EUR = (result.rates["EUR"]).toFixed(2);
-            let CHF = (result.rates["CHF"]).toFixed(2);
-            let KYD = (result.rates["KYD"]).toFixed(2);
-            let KWD = (result.rates["KWD"]).toFixed(2);
-            let KRW = (result.rates["KRW"]).toFixed(2);
-            let CNY = (result.rates["CNY"]).toFixed(2);
-            let INR = (result.rates["INR"]).toFixed(2);
-            let theDate = result.date;
-            let timeStamp = result.timestamp;
-
-            // Create a new JavaScript Date object based on the timestamp
-            // multiplied by 1000 so that the argument is in milliseconds, not seconds.
-            var date = new Date(timeStamp * 1000);
-            // Hours part from the timestamp
-            var hours = date.getHours();
-            // Minutes part from the timestamp
-            var minutes = "0" + date.getMinutes();
-            // Seconds part from the timestamp
-            var seconds = "0" + date.getSeconds();
-
-            // Will display time in 10:30:23 format
-            var formattedTime = hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
-            console.log(theDate);
-            console.log(formattedTime);
-
-
-            let answer01 = document.getElementById("answer01");
-            let answer02 = document.getElementById("answer02");
-            let answer03 = document.getElementById("answer03");
-            let answer04 = document.getElementById("answer04");
-            let answer05 = document.getElementById("answer05");
-            let answer06 = document.getElementById("answer06");
-            let answer07 = document.getElementById("answer07");
-            let answer08 = document.getElementById("answer08");
-            let answer09 = document.getElementById("answer09");
-            
-            answer01.innerHTML = CAD;
-            answer02.innerHTML = GBP;
-            answer03.innerHTML = EUR;
-            answer04.innerHTML = CHF;
-            answer05.innerHTML = KYD;
-            answer06.innerHTML = KWD;
-            answer07.innerHTML = KRW;
-            answer08.innerHTML = CNY;
-            answer09.innerHTML = INR;
-
-            let updatedDate = document.getElementById("date");
-            let updatedTime = document.getElementById("time");
-
-            updatedDate.innerHTML = theDate;
-            updatedTime.innerHTML = formattedTime;
-            
-            
-        }
-
-} catch (error) {
-    if (error) throw error;
-    console.log("Convert API error ", error);
-    let 
-}
-
- 
-    
-}
 
 /**
  *  Call the getTimeSeries function on form submission 
