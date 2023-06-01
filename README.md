@@ -1,5 +1,7 @@
 # Currency converter and currency dashboard
 
+ A currency web app that shows currency results, fluctuation (amount and percentage change), historical data, graphs, and a dashboard. Built with exchange rate API and Bootstrap front end framework.
+
 ## World currencies relative to USD
 <img width="1920" alt="Screenshot 2023-05-31 at 11 31 49 PM" src="https://github.com/maplesyrupweb/currency-app/assets/73809301/15cb37c0-7ae7-4414-bf1d-2299e607646b">
 
