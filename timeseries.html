@@ -26,20 +26,23 @@
                   </div>
                   <div class="col-sm">
                     
-                    <label for="amount" class="col-form-label">End date</label>
+                    <label for="endDate" class="col-form-label">End date</label>
                     <input type="date" class="form-control" id="endDate" placeholder="YYYY-MM-DD" required>
                     <div class="valid-feedback"></div>
                     <div class="invalid-feedback"></div>
                     <p class="" id="endDateError"></p>         
                 
                   </div>
+
+                  <div class="col-sm">
+                    <label for="amount" class="col-form-label">Amount</label>
+                    <input type="number" class="form-control" id="amount" placeholder="">
+                  </div>
+                  
                   <div class="col-sm">
                     <label for="from" class="col-form-label">From</label>
                     <select id="from" class="form-select" aria-label="Default select example" required>
                         <option selected disabled value="">Choose currency</option>
-                        <option value="CAD">CAD</option>
-                        <option value="USD">USD</option>
-                        <option value="GBP">GBP</option>
                       </select>
                       <div class="valid-feedback">Valid</div>
                       <div class="invalid-feedback">Invalid</div>        
@@ -50,9 +53,6 @@
                     <label for="to" class="col-form-label">To</label>
                     <select id="to" class="form-select" aria-label="Default select example" required>
                         <option selected disabled value="">Choose currency</option>
-                        <option value="CAD">CAD</option>
-                        <option value="USD">USD</option>
-                        <option value="GBP">GBP</option>
                       </select>
                       <div class="valid-feedback"></div>
                       <div class="invalid-feedback"></div>
@@ -88,10 +88,16 @@
             
         </div>  
     </div>
+    <!-- Bootstrap -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+    <!-- Currencies  -->
+    <script src="currencies.js"></script>
+    <!-- Functions and logic -->
     <script src="scripts.js"></script>
+    <!-- API Key -->
     <script src="apikey.js"></script>
-    <!-- <script src="validation.js"></script> -->
+    
+    <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
     <script>
         $(function(){

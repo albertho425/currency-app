@@ -4,7 +4,7 @@ let theAnswerChangePCT = document.getElementById("answerPCT");
 let amount = document.getElementById("amount");
 let from = document.getElementById("from");
 let to = document.getElementById("to");
-let theDate = document.getElementById("date");
+// let theDate = document.getElementById("theDate");
 let theStartDate = document.getElementById("startDate");
 let theEndDate = document.getElementById("endDate");
 
@@ -16,30 +16,53 @@ currencies.forEach((currency) => {
     from.add(option);
   });
   
-  //Repeat same thing for the other dropdown
-  currencies.forEach((currency) => {
+currencies.forEach((currency) => {
     const option = document.createElement("option");
     option.value = currency;
     option.text = currency;
     to.add(option);
-  });
-  
+});
+
 //Default values of currencies
 from.value="CAD";
 to.value="USD";
 amount.value=1.0;
+
 let today = new Date();
-var year = today.toLocaleString("default", { year: "numeric" });
-var month = today.toLocaleString("default", { month: "2-digit" });
-var day = today.toLocaleString("default", { day: "2-digit" });
-
-
-var formattedDate = year + "-" + month + "-" + day;
-console.log(formattedDate);  // Prints: 2022-05-0
-
-console.log(today);
+let formattedDate = convertDate(today);
+console.log("the formatted date from a function is: " + formattedDate);
 startDate.value = formattedDate;
 
+/**
+ * Converts a date to YYYY-MM-DD
+ * @param {*} convertDateInput 
+ * @returns 
+ */
+function convertDate(convertDateInput) {
+
+    var year = convertDateInput.toLocaleString("default", { year: "numeric" });
+    var month = convertDateInput.toLocaleString("default", { month: "2-digit" });
+    var day = convertDateInput.toLocaleString("default", { day: "2-digit" });
+    var formattedDate = year + "-" + month + "-" + day;
+    return formattedDate;
+}
+
+/**
+ * Subtracts a month from a date
+ * @param {*} date 
+ * @param {*} months 
+ * @returns 
+ */
+
+function subtractMonths(date, months) {
+    date.setMonth(date.getMonth() - months);
+    return date;
+  }
+  
+const newDate = subtractMonths(today, 1);
+
+
+console.log("the date minus 1 month is: " + newDate); 
 
 
 /**
@@ -255,7 +278,7 @@ async function getHistory(dateInput, fromInput, toInput) {
              }
             //  console.log(success);
             
-            let sentence = `On ${dateInput}, ${amountToConvert} from ${fromInput} to ${toInput} is ${totalAmount}.`;
+            let sentence = `On ${dateInput}, the value is ${totalAmount}.`;
              console.log(sentence);
             outputData(sentence);
 
