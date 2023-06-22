@@ -3,25 +3,16 @@
  A currency web app that shows currency results, fluctuation (amount and percentage change), historical data, graphs, and a dashboard. Built with exchange rate API and Bootstrap front end framework.
 
 ## World currencies relative to USD
-<img width="1920" alt="Screenshot 2023-05-31 at 11 31 49 PM" src="https://github.com/maplesyrupweb/currency-app/assets/73809301/15cb37c0-7ae7-4414-bf1d-2299e607646b">
+<img width="1920" alt="currency-home" src="https://github.com/maplesyrupweb/browser-sync/assets/73809301/bf3773da-20d6-49d4-8c0f-580b669bb811">
 
 ## Left-hand side navigation menu
-<img width="1920" alt="Screenshot 2023-05-31 at 11 31 56 PM" src="https://github.com/maplesyrupweb/currency-app/assets/73809301/20519d7c-fedb-4a69-a855-2a06cceb19d6">
-
-## Get the value of a currecy exchange on a date in the past
-<img width="381" alt="Screenshot 2023-05-31 at 11 33 32 PM" src="https://github.com/maplesyrupweb/currency-app/assets/73809301/92aaf30b-36dd-4259-9083-12d0e2174fab">
+<img width="1920" alt="currency-home-nav" src="https://github.com/maplesyrupweb/browser-sync/assets/73809301/c4ae2a77-63e8-4377-a07b-1b846d1487f1">
 
 ## Mobile navigation menu
-<img width="378" alt="Screenshot 2023-05-31 at 11 33 48 PM" src="https://github.com/maplesyrupweb/currency-app/assets/73809301/c4175174-9bc2-4ccd-88cf-b46df7964f08">
+<img width="378" alt="currency-mobile-nav" src="https://github.com/maplesyrupweb/browser-sync/assets/73809301/6cfde865-126e-4b5d-a8a4-746dcbb13eab">
 
-## World currencies relative to USD (mobile)
-<img width="381" alt="Screenshot 2023-05-31 at 11 34 02 PM" src="https://github.com/maplesyrupweb/currency-app/assets/73809301/25e183bf-f586-4624-9f42-db1c7286c752">
-
-## See the fluctuation of a currency exchange on a time interval in the past (mobile)
-<img width="380" alt="Screenshot 2023-05-31 at 11 34 47 PM" src="https://github.com/maplesyrupweb/currency-app/assets/73809301/850a4e9d-484f-4c77-bce1-726f5e9a428d">
-
-## See the fluctuation of a currency exchange on a time interval in the past (desktop)
-<img width="1920" alt="Screenshot 2023-05-31 at 11 43 19 PM" src="https://github.com/maplesyrupweb/currency-app/assets/73809301/50288a8a-eeec-4ddf-bc76-fbf3c6497f81">
+## See how much change there has been between two currencies at a specified date
+<img width="380" alt="currency-fluctuation-mobile" src="https://github.com/maplesyrupweb/browser-sync/assets/73809301/93e36784-057f-4e96-895f-c55dedd4582b">
 
 ## See the graph of a currency exchange on a time interval in the past
-<img width="379" alt="Screenshot 2023-05-31 at 11 35 29 PM" src="https://github.com/maplesyrupweb/currency-app/assets/73809301/42ce21fa-9191-4a96-b00f-1bab78f066d4">
+<img width="379" alt="currency-mobile-graph" src="https://github.com/maplesyrupweb/browser-sync/assets/73809301/50bc0918-7b6c-4cc2-9f73-a20a8f357a54">
